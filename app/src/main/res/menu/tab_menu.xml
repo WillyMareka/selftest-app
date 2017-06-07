@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/bottom_nav_map"
+        android:title="Map"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_map_black_24dp"/>
+    <item
+        android:id="@+id/bottom_nav_list"
+        android:title="Referral Sites"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_format_list_bulleted_black_24dp"/>
+
+    <item
+        android:id="@+id/bottom_nav_info"
+        android:title="Information"
+        app:showAsAction="collapseActionView"
+        android:icon="@drawable/ic_info"/>
+</menu>

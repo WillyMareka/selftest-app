@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--<group android:checkableBehavior="single">-->
+        <item android:title="Main Menu">
+            <menu>
+                <item
+                    android:id="@+id/nav_referral_sites"
+                    android:icon="@drawable/ic_add_location"
+                    android:title="Referral Sites" />
+                <item
+                    android:id="@+id/nav_pharmacies"
+                    android:icon="@drawable/ic_add_location"
+                    android:title="Pharmacies" />
+                <item
+                    android:id="@+id/nav_slideshow"
+                    android:icon="@drawable/ic_library"
+                    android:title="Resources" />
+                <item
+                    android:id="@+id/nav_manage"
+                    android:icon="@drawable/ic_faq"
+                    android:title="FAQs" />
+            </menu>
+        </item>
+    <!--</group>-->
+
+    <item android:title="Other Options">
+        <menu>
+            <item
+                android:id="@+id/nav_share"
+                android:title="Share App"
+                android:icon="@drawable/ic_menu_share"/>
+            <item
+                android:id="@+id/nav_appinfo"
+                android:title="About"
+                android:icon="@drawable/ic_info"/>
+        </menu>
+    </item>
+</menu>

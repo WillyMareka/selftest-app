@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">Besure</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="organization_name">Pharmaceutical Society of Kenya</string>
+
+    <string-array name="nav_item_activity_titles">
+        <item>Referral Sites</item>
+        <item>Pharmacies</item>
+        <item>Resources</item>
+        <item>FAQs</item>
+        <item>Share App</item>
+        <item>About</item>
+    </string-array>
+    <string name="title_activity_maps">Map</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="getting_ready">Please Wait While We get Ready...</string>
+    <string name="action_filter">Filter</string>
+    <string name="referral_sites_helpful_info">Referral Sites are facilities where you are able to get advice on what steps you take next after performing the self test</string>
+    <string name="why_counselling">
+        \u2022 To get appropriate advice on what to do.\n
+        \u2022 To answer any questions you got.\n
+        \u2022 To help you protect yourself and other people around you.\n
+    </string>
+    <string name="information_link">For more information, please go to the besure website.</string>
+    <string name="action_search">Search</string>
+</resources>
+
