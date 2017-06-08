@@ -1,10 +1,13 @@
 package ke.co.debechlabs.besure.fragments;
 
+import android.annotation.TargetApi;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
@@ -31,6 +34,8 @@ import ke.co.debechlabs.besure.adapter.CountyListAdapter;
 import ke.co.debechlabs.besure.adapter.ReferralListAdapter;
 import ke.co.debechlabs.besure.models.County;
 import ke.co.debechlabs.besure.models.Facility;
+import ke.co.debechlabs.besure.util.AnimationUtils;
+import ke.co.debechlabs.besure.util.RevealAnimationSetting;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -45,6 +50,7 @@ public class ReferralListFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private static final String ARG_REVEAL_SETTINGS = "reveal_settings";
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -55,7 +61,7 @@ public class ReferralListFragment extends Fragment {
     ListView referralListView;
     DatabaseHandler db;
 
-    private static final String ALL_FACILITIES_TITLE = "All Facilities";
+    private static final String ALL_FACILITIES_TITLE = "All Counties";
     private String faciltyNumbers;
 
     Toolbar toolbar;
@@ -68,12 +74,14 @@ public class ReferralListFragment extends Fragment {
 
 
     // TODO: Rename and change types and number of parameters
-    public static ReferralListFragment newInstance() {
+    public static ReferralListFragment newInstance(RevealAnimationSetting setting) {
+
         ReferralListFragment fragment = new ReferralListFragment();
-//        Bundle args = new Bundle();
+        Bundle args = new Bundle();
+        args.putParcelable(ARG_REVEAL_SETTINGS, setting);
 //        args.putString(ARG_PARAM1, param1);
 //        args.putString(ARG_PARAM2, param2);
-//        fragment.setArguments(args);
+        fragment.setArguments(args);
         return fragment;
     }
 
@@ -92,6 +100,15 @@ public class ReferralListFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_referral_list, container, false);
+        rootView.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+            @Override
+            public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+                v.removeOnLayoutChangeListener(this);
+            }
+        });
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            AnimationUtils.registerCircularRevealAnimation(getContext(), rootView, (RevealAnimationSetting) getArguments().getParcelable(ARG_REVEAL_SETTINGS), getActivity().getColor(R.color.colorPrimary), getActivity().getColor(R.color.colorIcons));
+        }
         db = new DatabaseHandler(getActivity());
         String county_name = Manager.getInstance(getActivity()).getCountyName();
         if(TextUtils.isEmpty(county_name)){
@@ -103,7 +120,8 @@ public class ReferralListFragment extends Fragment {
         faciltyNumbers = String.valueOf(facilityList.size());
 
         toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
-        toolbar.setTitle(ALL_FACILITIES_TITLE + "(" + faciltyNumbers + ")");
+        toolbar.setTitle(county_name);
+        toolbar.setSubtitle(faciltyNumbers + " Facilities");
         referralListView = (ListView) rootView.findViewById(R.id.referralList);
 
         referralListAdapter = new ReferralListAdapter(getActivity(), facilityList);
@@ -179,7 +197,8 @@ public class ReferralListFragment extends Fragment {
 
                 String countyName = county.getCounty_name();
                 facilityList = db.getFacilities(countyName);
-                toolbar.setTitle(countyName + " Facilities (" + facilityList.size() + ")");
+                toolbar.setTitle(countyName);
+                toolbar.setSubtitle(facilityList.size() + " Facilities");
 
 
                 referralListAdapter = new ReferralListAdapter(getActivity(), facilityList);
@@ -194,6 +213,7 @@ public class ReferralListFragment extends Fragment {
             public void onClick(DialogInterface dialog, int which) {
                 toolbar.setTitle(ALL_FACILITIES_TITLE);
                 facilityList = db.getAllFacilities();
+                toolbar.setSubtitle(facilityList.size() + " Facilities");
                 referralListAdapter = new ReferralListAdapter(getActivity(), facilityList);
                 referralListView.invalidate();
                 referralListView.setAdapter(referralListAdapter);

@@ -1,11 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+<LinearLayout android:layout_width="match_parent"
+    android:id="@+id/mainContent_wrapper"
     android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="ke.co.debechlabs.besure.MainActivity"
-    tools:showIn="@layout/app_bar_main"
-    android:id="@+id/mainContent">
-</android.support.design.widget.CoordinatorLayout>
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:context="ke.co.debechlabs.besure.MainActivity"
+        android:layout_marginTop="?attr/actionBarSize"
+        tools:showIn="@layout/app_bar_main"
+        android:id="@+id/mainContent">
+    </android.support.design.widget.CoordinatorLayout>
+    <android.support.design.widget.BottomNavigationView
+        android:layout_below="@id/mainContent"
+        android:id="@+id/navigation"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?android:attr/windowBackground"
+        app:menu="@menu/tab_menu"
+        android:layout_gravity="bottom">
+
+    </android.support.design.widget.BottomNavigationView>
+</LinearLayout>
+
+

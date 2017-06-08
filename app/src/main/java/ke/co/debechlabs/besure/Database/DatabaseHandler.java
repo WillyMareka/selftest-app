@@ -132,6 +132,34 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
+    public County getCounty(int id){
+        County county = new County();
+        SQLiteDatabase db = this.getReadableDatabase();
+        if(id != 0) {
+            Cursor cursor = db.query(
+                    COUNTY_TABLE_NAME,
+                    null,
+                    COUNTY_ID + "=?",
+                    new String[]{String.valueOf(id)},
+                    null,
+                    null,
+                    null,
+                    null);
+            if (cursor != null) {
+                if (cursor.moveToFirst()) {
+                    System.out.println("Cursor Index:::" + cursor.getInt(0));
+                    county.set_id(cursor.getInt(0));
+                    county.setCounty_name(cursor.getString(1));
+                }
+            }
+        }else{
+            county.setCounty_name("Unknown");
+            county.set_id(0);
+        }
+
+        return county;
+    }
+
     // Get all counties
     public List<County> getAllCounties(){
         List<County> countyList = new ArrayList<County>();

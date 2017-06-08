@@ -15,14 +15,14 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="What is a Referral Site?"
+            android:text="What is a Pharmacy?"
             android:textSize="18dp"
             android:textColor="@color/colorPrimaryText"/>
         <TextView
             android:textColor="@color/colorSecondaryText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/referral_sites_helpful_info"
+            android:text="@string/pharmacy_definition"
             />
 
         <TextView
@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:textSize="18dp"
             android:textColor="@color/colorPrimaryText"
-            android:text="Why should you go for Counselling?"/>
+            android:text="Why should you get the kit?"/>
 
         <TextView
             android:layout_width="match_parent"

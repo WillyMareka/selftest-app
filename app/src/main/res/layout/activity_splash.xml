@@ -5,11 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="ke.co.debechlabs.besure.SplashActivity">
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@drawable/besure_logo_yellow"
-        android:layout_centerInParent="true"/>
+    <!--<ImageView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:src="@drawable/besure_logo_yellow"-->
+        <!--android:layout_centerInParent="true"/>-->
 
     <LinearLayout
         android:layout_width="match_parent"

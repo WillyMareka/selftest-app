@@ -7,25 +7,29 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import ke.co.debechlabs.besure.Database.DatabaseHandler;
 import ke.co.debechlabs.besure.R;
+import ke.co.debechlabs.besure.adapter.PharmacyListAdapter;
+import ke.co.debechlabs.besure.models.Pharmacy;
 import ke.co.debechlabs.besure.util.AnimationUtils;
 import ke.co.debechlabs.besure.util.RevealAnimationSetting;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link ReferralContacts.OnFragmentInteractionListener} interface
+ * {@link PharmacyListingFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link ReferralContacts#newInstance} factory method to
+ * Use the {@link PharmacyListingFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ReferralContacts extends Fragment {
+public class PharmacyListingFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -36,18 +40,27 @@ public class ReferralContacts extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    Toolbar toolbar;
-
     private OnFragmentInteractionListener mListener;
 
-    public ReferralContacts() {
+    ListView pharmacyListView;
+    List<Pharmacy> pharmacyList = new ArrayList<Pharmacy>();
+    PharmacyListAdapter adapter;
+
+    Toolbar toolbar;
+    public PharmacyListingFragment() {
         // Required empty public constructor
     }
 
-
+    /**
+     * Use this factory method to create a new instance of
+     * this fragment using the provided parameters.
+     *
+     * @param setting
+     * @return A new instance of fragment PharmacyListingFragment.
+     */
     // TODO: Rename and change types and number of parameters
-    public static ReferralContacts newInstance(RevealAnimationSetting setting) {
-        ReferralContacts fragment = new ReferralContacts();
+    public static PharmacyListingFragment newInstance(RevealAnimationSetting setting) {
+        PharmacyListingFragment fragment = new PharmacyListingFragment();
         Bundle args = new Bundle();
         args.putParcelable(ARG_REVEAL_SETTINGS, setting);
         fragment.setArguments(args);
@@ -61,32 +74,32 @@ public class ReferralContacts extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
-        setHasOptionsMenu(true);
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        MenuItem filterItem = menu.findItem(R.id.action_filter);
-        MenuItem searchItem = menu.findItem(R.id.action_referral_list_search);
-
-        filterItem.setVisible(false);
-        searchItem.setVisible(false);
-        getActivity().invalidateOptionsMenu();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_referral_contacts, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_pharmacy_listing, container, false);
+        rootView.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+            @Override
+            public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+                v.removeOnLayoutChangeListener(this);
+            }
+        });
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             AnimationUtils.registerCircularRevealAnimation(getContext(), rootView, (RevealAnimationSetting) getArguments().getParcelable(ARG_REVEAL_SETTINGS), getActivity().getColor(R.color.colorPrimary), getActivity().getColor(R.color.colorIcons));
         }
-        toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
 
-        toolbar.setTitle("Helpful Information");
+        toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
+        toolbar.setTitle("Pharmacy List");
+        toolbar.setSubtitle("You can get your kits from here");
+
+        DatabaseHandler db =new DatabaseHandler(getActivity());
+        pharmacyList = db.getAllPharmacies();
+        adapter = new PharmacyListAdapter(getActivity(), pharmacyList);
+        pharmacyListView = (ListView) rootView.findViewById(R.id.pharmacyListView);
+        pharmacyListView.setAdapter(adapter);
         return rootView;
     }
 

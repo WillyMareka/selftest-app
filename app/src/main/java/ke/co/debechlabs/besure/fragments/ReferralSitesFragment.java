@@ -7,6 +7,7 @@ import android.location.Criteria;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
@@ -47,6 +48,8 @@ import java.util.Locale;
 
 import ke.co.debechlabs.besure.R;
 import ke.co.debechlabs.besure.SharedPreference.Manager;
+import ke.co.debechlabs.besure.util.AnimationUtils;
+import ke.co.debechlabs.besure.util.RevealAnimationSetting;
 
 /**
  * Created by chriz on 6/5/2017.
@@ -57,6 +60,8 @@ public class ReferralSitesFragment extends Fragment {
     MapView mMapView;
     private GoogleMap googleMap;
     Menu menu;
+
+    public static final String ARG_REVEAL_SETTINGS = "settings";
 
     Toolbar toolbar;
 
@@ -82,6 +87,9 @@ public class ReferralSitesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_referral_sites, container, false);
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            AnimationUtils.registerCircularRevealAnimation(getContext(), view, (RevealAnimationSetting) getArguments().getParcelable(ARG_REVEAL_SETTINGS), getActivity().getColor(R.color.colorPrimary), getActivity().getColor(R.color.colorIcons));
+        }
         mMapView = (MapView) view.findViewById(R.id.mapView);
         mMapView.onCreate(savedInstanceState);
         mMapView.onResume();
@@ -107,7 +115,7 @@ public class ReferralSitesFragment extends Fragment {
                     //                                          int[] grantResults)
                     // to handle the case where the user grants the permission. See the documentation
                     // for ActivityCompat#requestPermissions for more details.
-                    String[] PERMISSIONS = {android.Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
+                    String[] PERMISSIONS = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
                     ActivityCompat.requestPermissions(getActivity(), PERMISSIONS, 1);
                 } else {
                     try {
@@ -168,8 +176,11 @@ public class ReferralSitesFragment extends Fragment {
         super.onDetach();
     }
 
-    public static ReferralSitesFragment newInstance() {
+    public static ReferralSitesFragment newInstance(RevealAnimationSetting setting) {
         ReferralSitesFragment fragment = new ReferralSitesFragment();
+        Bundle args = new Bundle();
+        args.putParcelable(ARG_REVEAL_SETTINGS, setting);
+        fragment.setArguments(args);
         return fragment;
     }
 
