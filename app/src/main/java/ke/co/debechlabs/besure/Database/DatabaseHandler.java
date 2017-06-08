@@ -11,6 +11,7 @@ import java.util.List;
 
 import ke.co.debechlabs.besure.models.County;
 import ke.co.debechlabs.besure.models.Facility;
+import ke.co.debechlabs.besure.models.Faq;
 import ke.co.debechlabs.besure.models.Pharmacy;
 
 /**
@@ -49,6 +50,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String FACILITY_LATITUDE = "latitude";
     private static final String FACILITY_COUNTY_NAME = "county_name";
 
+    // FAQ Table
+    private static final String FAQ_TABLE_NAME = "faqs";
+
+    private static final String FAQ_ID = "id";
+    private static final String FAQ_QUESTION = "question";
+    private static final String FAQ_ANSWER = "answer";
+    private static final String FAQ_IMAGEPATH = "imagepath";
+    private static final String FAQ_STATUS = "status";
+
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -78,9 +88,18 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + PHARMACY_COUNTY_ID + " INTEGER"
                 + ")";
 
+        String CREATE_FAQ_TABLE = "CREATE TABLE " + FAQ_TABLE_NAME + "("
+                + FAQ_ID + " INTEGER PRIMARY KEY,"
+                + FAQ_QUESTION + " TEXT,"
+                + FAQ_ANSWER + " TEXT,"
+                + FAQ_IMAGEPATH + " TEXT,"
+                + FAQ_STATUS + " INT,"
+                + ")";
+
         db.execSQL(CREATE_COUNTY_TABLE);
         db.execSQL(CREATE_FACILITY_TABLE);
         db.execSQL(CREATE_PHARMACY_TABLE);
+        db.execSQL(CREATE_FAQ_TABLE);
     }
 
     @Override
@@ -88,6 +107,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + PHARMACY_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + FACILITY_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + COUNTY_TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + FAQ_TABLE_NAME);
 
         onCreate(db);
     }
@@ -97,6 +117,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + PHARMACY_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + FACILITY_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + COUNTY_TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + FAQ_TABLE_NAME);
 
         onCreate(db);
     }
@@ -189,6 +210,69 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         // return count
         return cursor.getCount();
     }
+
+    // Add Faq
+    public void addFaq(Faq faq){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+
+        values.put(FAQ_ID, faq.get_id());
+        values.put(FAQ_QUESTION, faq.get_faq_question());
+        values.put(FAQ_ANSWER, faq.get_faq_answer());
+        values.put(FAQ_IMAGEPATH, faq.get_faq_imagepath());
+        values.put(FAQ_STATUS, faq.get_faq_status());
+
+        db.insert(FAQ_TABLE_NAME, null, values);
+        db.close();
+    }
+
+
+    public void addFaqs(List<Faq> faqs){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.beginTransaction();
+
+        try {
+            ContentValues values = new ContentValues();
+            for (Faq faq : faqs){
+                values.put(FACILITY_ID, faq.get_id());
+                values.put(FACILITY_NAME, faq.get_faq_question());
+                values.put(FACILITY_CODE, faq.get_faq_answer());
+                values.put(FACILITY_LATITUDE, faq.get_faq_imagepath());
+                values.put(FACILITY_LONGITUDE, faq.get_faq_status());
+
+                db.insert(FAQ_TABLE_NAME, null, values);
+            }
+            db.setTransactionSuccessful();
+        }finally {
+            db.endTransaction();
+        }
+    }
+
+    public List<Faq> getAllFaqs(){
+        List<Faq> faqList = new ArrayList<Faq>();
+        String selectQuery = "SELECT  * FROM " + FAQ_TABLE_NAME;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        if (cursor.moveToFirst()){
+            do {
+                Faq faq = new Faq();
+
+                faq.set_id(Integer.parseInt(cursor.getString(0)));
+                faq.set_faq_question(cursor.getString(1));
+                faq.set_faq_answer(cursor.getString(2));
+                faq.set_faq_imagepath(cursor.getString(3));
+                faq.set_faq_status(Integer.parseInt(cursor.getString(4)));
+
+                faqList.add(faq);
+            }while(cursor.moveToNext());
+        }
+        return faqList;
+    }
+
+
     // Add Facility
     public void addFacility(Facility facility){
         SQLiteDatabase db = this.getWritableDatabase();
