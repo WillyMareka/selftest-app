@@ -1,10 +1,10 @@
 package ke.co.debechlabs.besure.models;
 
 /**
- * Created by Marewill on 6/8/2017.
+ * Created by Marewill on 6/9/2017.
  */
 
-public class Faq {
+public class Faqs {
     private int _id, _faq_status;
     private String _faq_question, _faq_answer, _faq_imagepath;
 
@@ -47,7 +47,6 @@ public class Faq {
     public void set_faq_status (int _faq_status) {
         this._faq_status = _faq_status;
     }
-
 
 
 }

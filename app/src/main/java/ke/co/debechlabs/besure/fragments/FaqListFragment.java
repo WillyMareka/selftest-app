@@ -1,18 +1,12 @@
 package ke.co.debechlabs.besure.fragments;
 
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
@@ -23,7 +17,7 @@ import java.util.List;
 import ke.co.debechlabs.besure.Database.DatabaseHandler;
 import ke.co.debechlabs.besure.R;
 import ke.co.debechlabs.besure.adapter.FaqListAdapter;
-import ke.co.debechlabs.besure.models.Faq;
+import ke.co.debechlabs.besure.models.Faqs;
 import ke.co.debechlabs.besure.util.AnimationUtils;
 import ke.co.debechlabs.besure.util.RevealAnimationSetting;
 
@@ -32,37 +26,39 @@ import ke.co.debechlabs.besure.util.RevealAnimationSetting;
  */
 
 public class FaqListFragment extends Fragment {
+    // TODO: Rename parameter arguments, choose names that match
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    private static final String ARG_REVEAL_SETTINGS = "reveal_settings";
+    private static final String ARG_REVEAL_SETTINGS = "settings";
 
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
-    List<Faq> faqList = new ArrayList<Faq>();
-    FaqListAdapter faqListAdapter;
-    ListView faqListView;
-    DatabaseHandler db;
+    private FaqListFragment.OnFragmentInteractionListener mListener;
 
-    private static final String ALL_FAQ_TITLE = "All FAQs";
-    private String faqNumbers = "13";
+    ListView faqListView;
+    List<Faqs> faqList = new ArrayList<Faqs>();
+    FaqListAdapter adapter;
 
     Toolbar toolbar;
-
-    private OnFragmentInteractionListener mListener;
-
     public FaqListFragment() {
         // Required empty public constructor
     }
 
+    /**
+     * Use this factory method to create a new instance of
+     * this fragment using the provided parameters.
+     *
+     * @param setting
+     * @return A new instance of fragment PharmacyListingFragment.
+     */
+    // TODO: Rename and change types and number of parameters
     public static FaqListFragment newInstance(RevealAnimationSetting setting) {
-
         FaqListFragment fragment = new FaqListFragment();
         Bundle args = new Bundle();
         args.putParcelable(ARG_REVEAL_SETTINGS, setting);
-//        args.putString(ARG_PARAM1, param1);
-//        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -74,12 +70,12 @@ public class FaqListFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-        setHasOptionsMenu(true);
     }
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_faq_list, container, false);
         rootView.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
             @Override
@@ -90,19 +86,20 @@ public class FaqListFragment extends Fragment {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             AnimationUtils.registerCircularRevealAnimation(getContext(), rootView, (RevealAnimationSetting) getArguments().getParcelable(ARG_REVEAL_SETTINGS), getActivity().getColor(R.color.colorPrimary), getActivity().getColor(R.color.colorIcons));
         }
-        db = new DatabaseHandler(getActivity());
 
-        toolbar.setTitle("FAQs");
         toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
+        toolbar.setTitle("Faq List");
+        toolbar.setSubtitle("Frequently Asked Questions");
 
-        toolbar.setSubtitle(faqNumbers + " Faqs");
-        faqListView = (ListView) rootView.findViewById(R.id.faqList);
-
-        faqListAdapter = new FaqListAdapter(getActivity(), faqList);
-        faqListView.setAdapter(faqListAdapter);
+        DatabaseHandler db =new DatabaseHandler(getActivity());
+        faqList = db.getAllFaqs();
+        adapter = new FaqListAdapter(getActivity(), faqList);
+        faqListView = (ListView) rootView.findViewById(R.id.pharmacyListView);
+        faqListView.setAdapter(adapter);
         return rootView;
     }
 
+    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
@@ -112,7 +109,7 @@ public class FaqListFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof ReferralListFragment.OnFragmentInteractionListener) {
+        if (context instanceof FaqListFragment.OnFragmentInteractionListener) {
             mListener = (FaqListFragment.OnFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
@@ -139,18 +136,5 @@ public class FaqListFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
-
-
-
-
-    public void createFaqList(){
-
     }
 }

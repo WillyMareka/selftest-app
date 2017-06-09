@@ -21,7 +21,7 @@ import ke.co.debechlabs.besure.app.AppController;
 import ke.co.debechlabs.besure.app.Config;
 import ke.co.debechlabs.besure.models.County;
 import ke.co.debechlabs.besure.models.Facility;
-import ke.co.debechlabs.besure.models.Faq;
+import ke.co.debechlabs.besure.models.Faqs;
 import ke.co.debechlabs.besure.models.Pharmacy;
 
 public class SplashActivity extends AppCompatActivity {
@@ -55,7 +55,7 @@ public class SplashActivity extends AppCompatActivity {
                             List<County> countyList = new ArrayList<County>();
                             List<Pharmacy> pharmacyList = new ArrayList<Pharmacy>();
                             List<Facility> facilityList = new ArrayList<Facility>();
-                            List<Faq> faqList = new ArrayList<Faq>();
+                            List<Faqs> faqList = new ArrayList<Faqs>();
 
                             for (int i = 0; i < countiesArray.length(); i++) {
                                 County county = new County();
@@ -95,7 +95,7 @@ public class SplashActivity extends AppCompatActivity {
                             }
 
                             for (int i = 0; i < faqsArray.length(); i++) {
-                                Faq faq = new Faq();
+                                Faqs faq = new Faqs();
                                 JSONObject faqObj = faqsArray.getJSONObject(i);
 
                                 faq.set_id(faqObj.getInt("id"));

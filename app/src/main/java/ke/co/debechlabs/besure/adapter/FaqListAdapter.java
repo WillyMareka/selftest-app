@@ -11,8 +11,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import ke.co.debechlabs.besure.R;
-import ke.co.debechlabs.besure.models.Facility;
-import ke.co.debechlabs.besure.models.Faq;
+import ke.co.debechlabs.besure.models.Faqs;
 
 /**
  * Created by Marewill on 6/8/2017.
@@ -20,10 +19,10 @@ import ke.co.debechlabs.besure.models.Faq;
 
 public class FaqListAdapter extends BaseAdapter {
     Activity activity;
-    List<Faq> faqList;
+    List<Faqs> faqList;
     LayoutInflater inflater;
 
-    public FaqListAdapter(Activity a, List<Faq> f){
+    public FaqListAdapter(Activity a, List<Faqs> f){
         this.activity = a;
         this.faqList = f;
     }
@@ -53,7 +52,7 @@ public class FaqListAdapter extends BaseAdapter {
         TextView faq_no_txt = (TextView) convertView.findViewById(R.id.txtFaqNo);
         TextView faq_question_txt = (TextView) convertView.findViewById(R.id.txtFaqName);
 
-        Faq faq = faqList.get(position);
+        Faqs faq = faqList.get(position);
 
         faq_no_txt.setText(faq.get_id());
         faq_question_txt.setText(faq.get_faq_question());

@@ -189,11 +189,8 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {
-            CURRENT_TAG = TAG_FAQ;
-            FaqListFragment selectedFragment = FaqListFragment.newInstance(constructSetting());
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.mainContent, selectedFragment);
-            transaction.commit();
+            startActivity(new Intent(this, FaqsActivity.class));
+            return true;
 
         }else{
             navItemIndex = 0;
