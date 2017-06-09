@@ -52,10 +52,11 @@ public class FaqListAdapter extends BaseAdapter {
         TextView faq_no_txt = (TextView) convertView.findViewById(R.id.txtFaqNo);
         TextView faq_question_txt = (TextView) convertView.findViewById(R.id.txtFaqName);
 
+
         Faqs faq = faqList.get(position);
 
-        faq_no_txt.setText(faq.get_id());
-        faq_question_txt.setText(faq.get_faq_question());
+        faq_no_txt.setText(faq.get_faq_question());
+        faq_question_txt.setText(String.valueOf(faq.get_id()));
 
         return convertView;
     }

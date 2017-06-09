@@ -94,7 +94,7 @@ public class FaqListFragment extends Fragment {
         DatabaseHandler db =new DatabaseHandler(getActivity());
         faqList = db.getAllFaqs();
         adapter = new FaqListAdapter(getActivity(), faqList);
-        faqListView = (ListView) rootView.findViewById(R.id.pharmacyListView);
+        faqListView = (ListView) rootView.findViewById(R.id.faqList);
         faqListView.setAdapter(adapter);
         return rootView;
     }
