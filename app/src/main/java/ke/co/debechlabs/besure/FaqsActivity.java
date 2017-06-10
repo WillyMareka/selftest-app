@@ -12,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import ke.co.debechlabs.besure.fragments.FaqListFragment;
 import ke.co.debechlabs.besure.fragments.PharmacyHelpfulInformationFragment;
@@ -41,6 +42,7 @@ public class FaqsActivity extends AppCompatActivity implements
                     break;
 //                case R.id.faq_info:
 //                    selectedFragment = FaqHelpfulInformationFragment.newInstance(constructSetting());
+//                    Toast.makeText(FaqsActivity.this, "Under development", Toast.LENGTH_SHORT).show();
 //                    break;
             }
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();

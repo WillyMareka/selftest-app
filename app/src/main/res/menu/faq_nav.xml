@@ -6,9 +6,9 @@
         android:icon="@drawable/ic_format_list_bulleted_black_24dp"
         android:title="@string/faq_list" />
 
-    <item
-        android:id="@+id/faq_info"
-        android:icon="@drawable/ic_info"
-        android:title="@string/title_info" />
+    <!--<item-->
+        <!--android:id="@+id/faq_info"-->
+        <!--android:icon="@drawable/ic_info"-->
+        <!--android:title="@string/title_info" />-->
 
 </menu>
