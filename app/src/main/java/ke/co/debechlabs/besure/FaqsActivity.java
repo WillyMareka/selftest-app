@@ -40,7 +40,7 @@ public class FaqsActivity extends AppCompatActivity implements
                     selectedFragment = FaqListFragment.newInstance(constructSetting());
                     break;
 //                case R.id.faq_info:
-//                    selectedFragment = PharmacyHelpfulInformationFragment.newInstance(constructSetting());
+//                    selectedFragment = FaqHelpfulInformationFragment.newInstance(constructSetting());
 //                    break;
             }
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
