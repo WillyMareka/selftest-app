@@ -57,19 +57,31 @@ public class FaqListAdapter extends BaseAdapter {
             convertView = inflater.inflate(R.layout.faq_list_item, null);
 
         LinearLayout faq_item_lt = (LinearLayout) convertView.findViewById(R.id.faqitem);
-        TextView faq_no_txt = (TextView) convertView.findViewById(R.id.txtFaqNo);
+        final TextView faq_no_txt = (TextView) convertView.findViewById(R.id.txtFaqNo);
         final TextView faq_question_txt = (TextView) convertView.findViewById(R.id.txtFaqQuestion);
+        final TextView faq_answer_txt = (TextView) convertView.findViewById(R.id.txtFaqAnswer);
+        final TextView faq_image_txt = (TextView) convertView.findViewById(R.id.txtFaqImage);
+        final TextView faq_status_txt = (TextView) convertView.findViewById(R.id.txtFaqStatus);
 
         Faqs faq = faqList.get(position);
 
         faq_no_txt.setText(String.valueOf(faq.get_id()));
-        faq_question_txt.setText(faq.get_faq_question());
+        faq_question_txt.setText(String.valueOf(faq.get_faq_question()));
+        faq_answer_txt.setText(String.valueOf(faq.get_faq_answer()));
+        faq_image_txt.setText(String.valueOf(faq.get_faq_imagepath()));
+        faq_status_txt.setText(String.valueOf(faq.get_faq_status()));
 
         faq_item_lt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+//                Toast.makeText(v.getContext(),faq_question_txt.getText().toString(),Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(v.getContext(), FaqView.class);
-                intent.putExtra("question", String.valueOf(faq_question_txt));
+                intent.putExtra("question", faq_no_txt.getText().toString());
+                intent.putExtra("question", faq_question_txt.getText().toString());
+                intent.putExtra("answer", faq_answer_txt.getText().toString());
+                intent.putExtra("image", faq_image_txt.getText().toString());
+                intent.putExtra("faqstatus", faq_status_txt.getText().toString());
+
                 v.getContext().startActivity(intent);
             }
         });
