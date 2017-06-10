@@ -26,11 +26,19 @@
         tools:layout_editor_absoluteY="0dp">
 
         <TextView
+            android:id="@+id/txtfaqImage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Image"
+            android:visibility="gone" />
+
+        <ImageView
             android:id="@+id/faqImage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Image" />
+            app:srcCompat="@drawable/besure_logo_yellow" />
     </LinearLayout>
 
     <LinearLayout
@@ -55,12 +63,25 @@
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="0dp">
 
-        <TextView
-            android:id="@+id/faqAnswer"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Answer" />
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/faqAnswer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Answer" />
+            </LinearLayout>
+        </ScrollView>
+
     </LinearLayout>
 
 </LinearLayout>
