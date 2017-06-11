@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_list_row"
+    android:clickable="true"
+    android:padding="10dp"
+    android:focusable="true">
+
+    <RelativeLayout
+        android:id="@+id/thumb_wrapper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:id="@+id/icon_front"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/icon_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/icon_text" />
+            <ImageView
+                android:id="@+id/video_thumb"
+                android:layout_width="@dimen/video_thumb_width"
+                android:layout_height="@dimen/video_thumb_height" />
+        </RelativeLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/icon_front"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/video_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:text="Sample Title"
+                android:lines="1"
+                android:textColor="@color/colorPrimaryText"
+                android:textSize="@dimen/msg_text_secondary" />
+
+            <TextView
+                android:id="@+id/video_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:lines="1"
+                android:text="Sample Description"
+                android:textColor="@color/colorSecondaryText"
+                android:textSize="@dimen/msg_text_secondary" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/video_id"
+                android:visibility="gone"/>
+        </LinearLayout>
+    </RelativeLayout>
+</RelativeLayout>

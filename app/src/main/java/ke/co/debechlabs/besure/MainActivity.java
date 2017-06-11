@@ -183,8 +183,8 @@ public class MainActivity extends AppCompatActivity
             CURRENT_TAG = TAG_REFERRAL;
         } else if (id == R.id.nav_pharmacies) {
            startActivity(new Intent(this, PharmaciesActivity.class));
-        } else if (id == R.id.nav_slideshow) {
-
+        } else if (id == R.id.nav_resources) {
+            startActivity(new Intent(this, ResourcesActivity.class));
         } else if (id == R.id.nav_manage) {
 
         }else{

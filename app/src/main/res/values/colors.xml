@@ -11,4 +11,6 @@
     <color name="colorDivider">#BDBDBD</color>
     <color name="white_trans">#99FFFFFF</color>
     <color name="black_semi_transparent">#B2000000</color>
+    <color name="bg_circle_default">#666666</color>
+    <color name="row_activated">#e0e0e0</color>
 </resources>
