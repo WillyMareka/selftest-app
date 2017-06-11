@@ -88,7 +88,6 @@ public class FaqListFragment extends Fragment {
         }
 
         toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
-        toolbar.setTitle("Faq List");
         toolbar.setSubtitle("Frequently Asked Questions");
 
         DatabaseHandler db =new DatabaseHandler(getActivity());

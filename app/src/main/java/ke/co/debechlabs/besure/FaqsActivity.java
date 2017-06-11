@@ -66,7 +66,8 @@ public class FaqsActivity extends AppCompatActivity implements
         navigation = (BottomNavigationView) findViewById(R.id.navigation);
         container = (LinearLayout) findViewById(R.id.container);
 
-        toolbar.setTitle("FAQs");
+
+        toolbar.setSubtitle("Frequently Asked Questions");
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setHomeButtonEnabled(true);

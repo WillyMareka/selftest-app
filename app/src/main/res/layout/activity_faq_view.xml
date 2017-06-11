@@ -18,6 +18,18 @@
         app:theme="@style/ToolbarColoredBackArrow"
         app:titleTextColor="@color/colorIcons" />
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -59,10 +71,7 @@
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="0dp">
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -77,8 +86,12 @@
                     android:text="Answer"
                     android:textSize="18sp" />
             </LinearLayout>
-        </ScrollView>
+
 
     </LinearLayout>
+
+    </LinearLayout>
+
+    </ScrollView>
 
 </LinearLayout>
