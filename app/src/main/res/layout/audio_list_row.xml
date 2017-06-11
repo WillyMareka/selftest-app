@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="5dip">
+    <LinearLayout android:id="@+id/thumbnail"
+        android:layout_width="@dimen/icon_width_height"
+        android:layout_height="wrap_content"
+        android:padding="3dip"
+        android:gravity="center_vertical"
+        android:layout_alignParentLeft="true"
+        android:layout_marginRight="5dip"
+        android:orientation="horizontal">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ProgressBar
+                android:layout_width="@dimen/icon_width_height"
+                android:layout_height="@dimen/icon_width_height"
+                android:indeterminate="true"/>
+            <com.android.volley.toolbox.NetworkImageView
+                android:id="@+id/list_image"
+                android:scaleType="centerCrop"
+                android:layout_width="@dimen/icon_width_height"
+                android:layout_height="@dimen/icon_width_height" />
+        </FrameLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:layout_alignTop="@+id/thumbnail"
+        android:id="@+id/audio_details_layout"
+        android:layout_toRightOf="@+id/thumbnail"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/audio_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:text="Some Sample Name"
+            android:textColor="@color/colorPrimaryText"
+            android:textSize="@dimen/msg_text_secondary"/>
+
+        <TextView
+            android:id="@+id/audio_date"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#313131"
+            android:textSize="10dip"
+            android:layout_marginTop="1dip"
+            android:text="Jan 02, 2017" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/audio_station"
+            android:textSize="10dip"
+            android:text="XFM"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/audio_url"
+            android:visibility="gone"/>
+    </LinearLayout>
+
+
+</RelativeLayout>

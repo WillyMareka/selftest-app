@@ -39,5 +39,7 @@
     <string name="title_list">Pharmacy List</string>
     <string name="title_info">Helpful Information</string>
     <string name="pharmacy_definition">This is the facility where you can go and get your self test kits. They are cheap and affordable and can be used by anyone.</string>
+    <string name="title_activity_resources">Resources</string>
+    <string name="section_format">Hello World from section: %1$d</string>
 </resources>
 
