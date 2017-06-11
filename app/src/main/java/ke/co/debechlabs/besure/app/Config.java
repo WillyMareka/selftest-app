@@ -13,7 +13,7 @@ public class Config {
     public static final String BASE_URL = SERVER_URL + "API/";
     public static final String ASSETS_URL = SERVER_URL + "assets/";
 
-    public static final String SERVER_URL_LOCAL = "https://52d5af3e.ngrok.io/";
+    public static final String SERVER_URL_LOCAL = SERVER_URL;
     public static final String BASE_URL_LOCAL = SERVER_URL_LOCAL + "API/";
     public static final String ASSETS_URL_LOCAL = SERVER_URL_LOCAL + "assets/";
 
