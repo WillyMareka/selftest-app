@@ -21,6 +21,7 @@ import ke.co.debechlabs.besure.app.AppController;
 import ke.co.debechlabs.besure.app.Config;
 import ke.co.debechlabs.besure.models.County;
 import ke.co.debechlabs.besure.models.Facility;
+import ke.co.debechlabs.besure.models.Faqs;
 import ke.co.debechlabs.besure.models.Pharmacy;
 
 public class SplashActivity extends AppCompatActivity {
@@ -49,10 +50,12 @@ public class SplashActivity extends AppCompatActivity {
                             JSONArray countiesArray = dataObj.getJSONArray("counties");
                             JSONArray pharmaciesArray = dataObj.getJSONArray("pharmacies");
                             JSONArray facilitiesArray = dataObj.getJSONArray("facilities");
+                            JSONArray faqsArray = dataObj.getJSONArray("faqs");
 
                             List<County> countyList = new ArrayList<County>();
                             List<Pharmacy> pharmacyList = new ArrayList<Pharmacy>();
                             List<Facility> facilityList = new ArrayList<Facility>();
+                            List<Faqs> faqList = new ArrayList<Faqs>();
 
                             for (int i = 0; i < countiesArray.length(); i++) {
                                 County county = new County();
@@ -91,9 +94,23 @@ public class SplashActivity extends AppCompatActivity {
                                 facilityList.add(facility);
                             }
 
+                            for (int i = 0; i < faqsArray.length(); i++) {
+                                Faqs faq = new Faqs();
+                                JSONObject faqObj = faqsArray.getJSONObject(i);
+
+                                faq.set_id(faqObj.getInt("id"));
+                                faq.set_faq_question(faqObj.getString("question"));
+                                faq.set_faq_answer(faqObj.getString("answer"));
+                                faq.set_faq_imagepath(faqObj.getString("imagepath"));
+                                faq.set_faq_status(faqObj.getInt("status"));
+
+                                faqList.add(faq);
+                            }
+
                             db.addCounties(countyList);
                             db.addPharmacies(pharmacyList);
                             db.addFacilities(facilityList);
+                            db.addFaqs(faqList);
 
                             startActivity(new Intent(SplashActivity.this, MainActivity.class));
                             finish();

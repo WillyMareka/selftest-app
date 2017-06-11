@@ -24,6 +24,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
 
+import ke.co.debechlabs.besure.fragments.FaqListFragment;
 import ke.co.debechlabs.besure.fragments.ReferralContacts;
 import ke.co.debechlabs.besure.fragments.ReferralListFragment;
 import ke.co.debechlabs.besure.fragments.ReferralSitesFragment;
@@ -31,6 +32,7 @@ import ke.co.debechlabs.besure.util.RevealAnimationSetting;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
+        FaqListFragment.OnFragmentInteractionListener,
         ReferralContacts.OnFragmentInteractionListener,
         ReferralListFragment.OnFragmentInteractionListener{
 
@@ -176,6 +178,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
+
         int id = item.getItemId();
 
         if (id == R.id.nav_referral_sites) {
@@ -186,6 +189,8 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_resources) {
             startActivity(new Intent(this, ResourcesActivity.class));
         } else if (id == R.id.nav_manage) {
+            startActivity(new Intent(this, FaqsActivity.class));
+            return true;
 
         }else{
             navItemIndex = 0;
