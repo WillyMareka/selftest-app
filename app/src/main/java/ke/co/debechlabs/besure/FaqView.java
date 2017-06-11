@@ -9,8 +9,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +25,7 @@ public class FaqView extends AppCompatActivity {
     TextView txtfaqImage, faqID, faqQuestion, faqAnswer, faqStatus;
     ImageView faqImage;
     String image = "";
+    ProgressBar pBimage;
 
     private Toolbar toolbar;
 
@@ -33,6 +36,7 @@ public class FaqView extends AppCompatActivity {
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        pBimage = (ProgressBar) findViewById(R.id.pBimage);
 
         toolbar.setTitle("FAQs");
 
@@ -71,6 +75,7 @@ public class FaqView extends AppCompatActivity {
         private ImageView imageView;
 
         public ImageLoadTask() {
+            pBimage.setVisibility(View.VISIBLE);
             this.url = url;
             this.imageView = imageView;
         }
@@ -96,6 +101,7 @@ public class FaqView extends AppCompatActivity {
         protected void onPostExecute(Bitmap result) {
             super.onPostExecute(result);
             faqImage.setImageBitmap(result);
+            pBimage.setVisibility(View.INVISIBLE);
         }
 
     }
