@@ -41,5 +41,6 @@
     <string name="pharmacy_definition">This is the facility where you can go and get your self test kits. They are cheap and affordable and can be used by anyone.</string>
     <string name="title_activity_resources">Resources</string>
     <string name="section_format">Hello World from section: %1$d</string>
+    <string name="title_activity_survey">Survey</string>
 </resources>
 
