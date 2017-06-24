@@ -22,9 +22,12 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -43,7 +46,7 @@ public class Survey extends AppCompatActivity {
     boolean oralChecked;
     boolean bloodChecked;
 
-    int[] arr = new int[2];;
+    ArrayList<Integer> mylist = new ArrayList<Integer>();
 
 
     @Override
@@ -69,7 +72,7 @@ public class Survey extends AppCompatActivity {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.e(TAG,"clicked");
+
                 sendSurvey();
             }
         });
@@ -126,69 +129,62 @@ public class Survey extends AppCompatActivity {
             @Override
             protected Map<String,String> getParams(){
                 Map<String, String> params = new HashMap<>();
-                Log.e(TAG,"reaching");
 
-                JSONObject jsonObject=new JSONObject();
+
+
 //                Toast.makeText(Survey.this,"reaching", Toast.LENGTH_SHORT).show();
                 if(oralChecked && bloodChecked){
 
+                    Log.e(TAG,"reached_both");
                     for(int i=0;i<=1;i++)
                     {
-                        Log.e(TAG,"reached_both");
 
-//                        Toast.makeText(Survey.this,"reached_"+i, Toast.LENGTH_SHORT).show();
-                        arr[i]= i;
-                        try {
-                            jsonObject.put("kit_"+i,arr[i]);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+
+                        mylist.add(i);
+
 
                     }
+                    Log.e(TAG, String.valueOf(mylist.get(0)));
+                    Log.e(TAG, String.valueOf(mylist.get(1)));
+                    System.out.println("Data is "+ mylist.get(1));
                 }else if(oralChecked){
-//                    for(int i=0;i<=0;i++)
-//                    {
-//                    Toast.makeText(Survey.this,"reached_oral", Toast.LENGTH_SHORT).show();
+
                     Log.e(TAG,"reached_oral");
 
-                    arr[0]= 0;
-                        try {
-                            jsonObject.put("kit_"+0,arr[0]);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-//                    }
+                    mylist.add(0);
+                    Log.e(TAG, String.valueOf(mylist.get(0)));
+
                 }else if(bloodChecked){
-//                    for(int i=1;i<=1;i++)
-//                    {
-//                    Toast.makeText(Survey.this,"reached_blood", Toast.LENGTH_SHORT).show();
+
                     Log.e(TAG,"reached_blood");
 
-                    arr[0]= 1;
-                        try {
-                            jsonObject.put("kit_"+1,arr[1]);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-//                    }
+                    mylist.add(1);
+                    Log.e(TAG, String.valueOf(mylist.get(0)));
+
                 }else{
                     Log.e(TAG,"reached_none");
-//                    Toast.makeText(Survey.this,"reached_none", Toast.LENGTH_SHORT).show();
+                }
+
+                int[] array = new int[mylist.size()];
+                for(int i = 0; i < mylist.size(); i++){
+                    array[i] = mylist.get(i);
                 }
 
                 params.put("age",age);
                 params.put("comments",comments);
                 params.put("gender", String.valueOf(Integer.parseInt(gender)));
-                params.put("kit",arr.toString());
 
+                int m=0;
+                for(int object: array){
+                    params.put("kit["+(m++)+"]", String.valueOf(object));
+                }
                 return params;
             }
 
 
         };
-
-//        RequestQueue requestQueue = Volley.newRequestQueue(this);
-//        requestQueue.add(stringRequest);
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
     }
 
 }
