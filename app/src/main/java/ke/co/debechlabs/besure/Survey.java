@@ -1,9 +1,12 @@
 package ke.co.debechlabs.besure;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -55,6 +58,10 @@ public class Survey extends AppCompatActivity {
         setContentView(R.layout.activity_survey);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setHomeButtonEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
         etAge = (EditText) findViewById(R.id.etAge);
         etComments = (EditText) findViewById(R.id.etComments);
@@ -117,13 +124,14 @@ public class Survey extends AppCompatActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Toast.makeText(Survey.this,response,Toast.LENGTH_LONG).show();
+//                        Toast.makeText(Survey.this,response,Toast.LENGTH_LONG).show();
+                        Toast.makeText(Survey.this,"Successfully carried out the survey",Toast.LENGTH_LONG).show();
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(Survey.this,error.toString(),Toast.LENGTH_LONG).show();
+//                        Toast.makeText(Survey.this,error.toString(),Toast.LENGTH_LONG).show();
                     }
                 }){
             @Override
@@ -185,6 +193,14 @@ public class Survey extends AppCompatActivity {
         };
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString("Survey", "Done");
+        editor.commit();
+
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(intent);
     }
 
 }
