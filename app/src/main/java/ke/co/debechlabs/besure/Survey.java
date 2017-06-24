@@ -1,5 +1,6 @@
 package ke.co.debechlabs.besure;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -29,6 +30,9 @@ public class Survey extends AppCompatActivity {
     CheckBox cbOral,cbBlood;
     RadioGroup rgGender;
     Button btnSave,btnCancel;
+    RadioButton rbChecked;
+    String gender = "0";
+    String kits = "";
 
 
     @Override
@@ -47,6 +51,7 @@ public class Survey extends AppCompatActivity {
         btnCancel = (Button) findViewById(R.id.btnCancel);
 
         SaveClicked();
+        CancelClicked();
     }
 
     public void SaveClicked(){
@@ -58,12 +63,34 @@ public class Survey extends AppCompatActivity {
         });
     }
 
+    public void CancelClicked(){
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent surveyintent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(surveyintent);
+            }
+        });
+    }
+
     private void sendSurvey(){
         String survey_url = "http://besure.co.ke/Home/Survey/";
         final String age = etAge.getText().toString().trim();
         final String comments = etComments.getText().toString().trim();
+
+        int checkedGender = rgGender.getCheckedRadioButtonId();
+
+        rbChecked = (RadioButton) findViewById(checkedGender);
+
+
         final String kit1 = cbOral.getText().toString().trim();
         final String kit2 = cbBlood.getText().toString().trim();
+
+//        Toast.makeText(Survey.this,
+//                rbChecked.getText(), Toast.LENGTH_SHORT).show();
+
+
+
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, survey_url,
                 new Response.Listener<String>() {
@@ -81,9 +108,28 @@ public class Survey extends AppCompatActivity {
             @Override
             protected Map<String,String> getParams(){
                 Map<String,String> params = new HashMap<String, String>();
+
+                if(rbChecked.getText().toString() == "Male"){
+                    gender = "1";
+                }else if(rbChecked.getText().toString() == "Female"){
+                    gender = "2";
+                }
+
+
+
+                if(cbOral.isChecked() && cbBlood.isChecked()){
+                    kits = " Array([0] => 1[1] => 2)";
+                }else if(cbOral.isChecked()){
+                    kits = "1";
+                }else if(cbBlood.isChecked()){
+                    kits = "2";
+                }
+
                 params.put("age",age);
                 params.put("comments",comments);
-                params.put("gender", "male");
+                params.put("gender",gender);
+                params.put("kit",kits);
+
                 return params;
             }
 
