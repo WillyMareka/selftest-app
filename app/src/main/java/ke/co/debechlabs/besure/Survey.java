@@ -6,6 +6,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -21,18 +22,28 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.Map;
 
 public class Survey extends AppCompatActivity {
+
+    private static final String TAG = "MyActivity";
 
     EditText etAge,etComments;
     CheckBox cbOral,cbBlood;
     RadioGroup rgGender;
     Button btnSave,btnCancel;
     RadioButton rbChecked;
+
     String gender = "0";
-    String kits = "";
+
+    boolean oralChecked;
+    boolean bloodChecked;
+
+    int[] arr = new int[2];;
 
 
     @Override
@@ -58,6 +69,7 @@ public class Survey extends AppCompatActivity {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.e(TAG,"clicked");
                 sendSurvey();
             }
         });
@@ -86,11 +98,17 @@ public class Survey extends AppCompatActivity {
         final String kit1 = cbOral.getText().toString().trim();
         final String kit2 = cbBlood.getText().toString().trim();
 
-//        Toast.makeText(Survey.this,
-//                rbChecked.getText(), Toast.LENGTH_SHORT).show();
 
+        if(rbChecked.getText().equals("Male") ){
+            gender = String.valueOf('1');
+        }else if(rbChecked.getText().equals("Female")){
+            gender = String.valueOf('2');
+        }else{
+            gender = String.valueOf('0');
+        }
 
-
+        oralChecked = ((CheckBox) findViewById(R.id.cbOral)).isChecked();
+        bloodChecked = ((CheckBox) findViewById(R.id.cbBlood)).isChecked();
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, survey_url,
                 new Response.Listener<String>() {
@@ -107,36 +125,70 @@ public class Survey extends AppCompatActivity {
                 }){
             @Override
             protected Map<String,String> getParams(){
-                Map<String,String> params = new HashMap<String, String>();
+                Map<String, String> params = new HashMap<>();
+                Log.e(TAG,"reaching");
 
-                if(rbChecked.getText().toString() == "Male"){
-                    gender = "1";
-                }else if(rbChecked.getText().toString() == "Female"){
-                    gender = "2";
-                }
+                JSONObject jsonObject=new JSONObject();
+//                Toast.makeText(Survey.this,"reaching", Toast.LENGTH_SHORT).show();
+                if(oralChecked && bloodChecked){
 
+                    for(int i=0;i<=1;i++)
+                    {
+                        Log.e(TAG,"reached_both");
 
+//                        Toast.makeText(Survey.this,"reached_"+i, Toast.LENGTH_SHORT).show();
+                        arr[i]= i;
+                        try {
+                            jsonObject.put("kit_"+i,arr[i]);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
 
-                if(cbOral.isChecked() && cbBlood.isChecked()){
-                    kits = " Array([0] => 1[1] => 2)";
-                }else if(cbOral.isChecked()){
-                    kits = "1";
-                }else if(cbBlood.isChecked()){
-                    kits = "2";
+                    }
+                }else if(oralChecked){
+//                    for(int i=0;i<=0;i++)
+//                    {
+//                    Toast.makeText(Survey.this,"reached_oral", Toast.LENGTH_SHORT).show();
+                    Log.e(TAG,"reached_oral");
+
+                    arr[0]= 0;
+                        try {
+                            jsonObject.put("kit_"+0,arr[0]);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+//                    }
+                }else if(bloodChecked){
+//                    for(int i=1;i<=1;i++)
+//                    {
+//                    Toast.makeText(Survey.this,"reached_blood", Toast.LENGTH_SHORT).show();
+                    Log.e(TAG,"reached_blood");
+
+                    arr[0]= 1;
+                        try {
+                            jsonObject.put("kit_"+1,arr[1]);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+//                    }
+                }else{
+                    Log.e(TAG,"reached_none");
+//                    Toast.makeText(Survey.this,"reached_none", Toast.LENGTH_SHORT).show();
                 }
 
                 params.put("age",age);
                 params.put("comments",comments);
-                params.put("gender",gender);
-                params.put("kit",kits);
+                params.put("gender", String.valueOf(Integer.parseInt(gender)));
+                params.put("kit",arr.toString());
 
                 return params;
             }
 
+
         };
 
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(stringRequest);
+//        RequestQueue requestQueue = Volley.newRequestQueue(this);
+//        requestQueue.add(stringRequest);
     }
 
 }
