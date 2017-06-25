@@ -66,14 +66,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingBottom="10dp"
-                    android:text="BESURE APP is a mobile version of the official  website that allows one to view Referral Sites and Pharmacies that have and sell the HIV self test kits " />
+                    android:text="BESURE APP is a mobile version of the official website that allows one to view Referral Sites and Pharmacies that have and sell the HIV self test kits " />
 
                 <TextView
                     android:id="@+id/textView9"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingBottom="10dp"
-                    android:text="It also contains resources that help in the  conducting of a test, once one has already  purchased a kit and may require further assistance " />
+                    android:text="It also contains resources that help in the conducting of a test, once one has already purchased a kit and may require further assistance " />
 
                 <TextView
                     android:id="@+id/textView10"
@@ -87,7 +87,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingBottom="10dp"
-                    android:text="If this app does not help with any problem faced, please visit the official website and contact us with your problem or call  the helpline on 1190 from your Safaricom line " />
+                    android:text="If this app does not help with any problem faced, please visit the official website and contact us with your problem, or call the helpline on 1190 from your Safaricom line " />
             </LinearLayout>
 
         </LinearLayout>

@@ -197,7 +197,8 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_manage) {
             startActivity(new Intent(this, FaqsActivity.class));
             return true;
-
+        }else if(id == R.id.nav_appinfo) {
+            startActivity(new Intent(this, About.class));
         }else{
             navItemIndex = 0;
         }

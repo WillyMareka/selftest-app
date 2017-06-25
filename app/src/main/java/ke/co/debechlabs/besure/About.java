@@ -26,7 +26,7 @@ public class About extends AppCompatActivity {
 //            }
 //        });
 
-        toolbar.setSubtitle("About BESURE");
+        toolbar.setTitle("About BESURE");
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setHomeButtonEnabled(true);
