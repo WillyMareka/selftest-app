@@ -42,5 +42,6 @@
     <string name="title_activity_resources">Resources</string>
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="title_activity_survey">Survey</string>
+    <string name="title_activity_about">About</string>
 </resources>
 
